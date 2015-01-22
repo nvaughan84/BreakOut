@@ -6,9 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 public class MenuState extends GameState {
+	
+	//State state;
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
+		//set State
+		this.state = State.MAIN_MENU;
 	}
 
 	public void update() {		

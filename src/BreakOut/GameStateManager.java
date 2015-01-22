@@ -3,12 +3,21 @@ package BreakOut;
 import java.awt.Graphics;
 import java.util.Stack;
 
+import BreakOut.GameState.State;
+
+
 public class GameStateManager {
 
 	private Stack<GameState> states = new Stack<GameState>();
 	
+	
 	public GameStateManager() {
 		
+	}
+	
+	public State getState()
+	{
+		return states.peek().getState();
 	}
 	
 	public Stack<GameState> getStates()

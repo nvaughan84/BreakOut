@@ -11,11 +11,6 @@ public class Game extends JPanel implements KeyListener{
 	
 	GameStateManager gsm = new GameStateManager();
 	
-	public enum State{
-		MAIN_MENU, PLAYING, PAUSE
-	}
-	
-	State state = State.MAIN_MENU;
 		
 	public Game() {
 		
@@ -60,14 +55,13 @@ public class Game extends JPanel implements KeyListener{
 
 
 	public void keyPressed(KeyEvent k) {
-		switch(state)
+		switch(gsm.getState())
 		{
 			case MAIN_MENU:
 			if(k.getKeyCode()==KeyEvent.VK_ENTER)
 			{
 				//add the PlayState to the Stack and update enum value
 				gsm.add(new PlayState(gsm, this));
-				state = State.PLAYING;
 			}
 			break;
 			case PLAYING:
@@ -75,7 +69,6 @@ public class Game extends JPanel implements KeyListener{
 				{
 					//add the PlayState to the Stack and update enum value
 					gsm.add(new PauseState(gsm));
-					state = State.PAUSE;
 				}
 				break;
 			case PAUSE:
@@ -83,7 +76,6 @@ public class Game extends JPanel implements KeyListener{
 				{
 					//add the PlayState to the Stack and update enum value
 					gsm.pop();
-					state = State.PLAYING;
 				}
 				break;
 		}

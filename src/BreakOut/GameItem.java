@@ -23,7 +23,7 @@ public class GameItem {
 	
 	public boolean collision(GameItem item)
 	{
-		return this.getBounds().intersects(item.getBounds());
+		return getBounds().intersects(item.getBounds());
 	}
 
 	

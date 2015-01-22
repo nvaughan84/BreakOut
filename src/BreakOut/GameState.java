@@ -5,9 +5,22 @@ import java.awt.Graphics;
 public abstract class GameState {
 	
 	GameStateManager gsm;
+	
+	//all possible states
+	public enum State{
+		MAIN_MENU, PLAYING, PAUSE, GAME_OVER
+	}
+	
+	State state;
+	
 
 	public GameState(GameStateManager gsm) {
 		this.gsm = gsm;
+	}
+	
+	public State getState()
+	{
+		return state;
 	}
 		
 	public abstract void update();
