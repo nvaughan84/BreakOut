@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 public class Ball extends MovingItem{
 
 	private Game game;
+	private boolean outOfBounds = false;
 
 	public Ball(int x, int y, int width, int height, int vx, int vy, Game game) {
 		super(x, y, width, height, vx, vy);
@@ -22,9 +23,11 @@ public class Ball extends MovingItem{
 	
 	public void move(int vx, int vy)
 	{
+		//check if the ball hits the walls
 		if(this.getY()+this.getHeight()>=game.getHeight())
 		{
 			this.setVY(-vy);//reverse direction of y-velocity component
+			this.outOfBounds = true;
 		}
 		if(this.getY()<=0)
 		{
@@ -38,9 +41,15 @@ public class Ball extends MovingItem{
 		{
 			this.setVX(-vx);//reverse direction of y-velocity component
 		}
-		this.setX(this.getX()+this.getVX());
-		this.setY(this.getY()+this.getVY());
 		
+		this.setX(this.getX()+this.getVX());
+		this.setY(this.getY()+this.getVY());		
 	}
+	public boolean isOutOfBounds()
+	{
+		return outOfBounds;
+	}
+	
+	
 
 }

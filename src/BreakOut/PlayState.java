@@ -13,7 +13,7 @@ public class PlayState extends GameState {
 	public PlayState(GameStateManager gsm, Game game) {
 		super(gsm);
 		
-		this.ball = new Ball(20,20,20,20,3,3, game);
+		this.ball = new Ball(20,20,20,20,1,1, game);
 		this.paddle = new Paddle(20, game.getHeight()-20, 30, 10, 0, 0, game);
 	}
 
@@ -21,12 +21,32 @@ public class PlayState extends GameState {
 	public void update() {
 		
 		ball.move(ball.getVX(), ball.getVY());
+		if(ball.isOutOfBounds())
+		{
+		}
 		if(paddleRight){
 			paddle.move(5);
 		}
 		if(paddleLeft)
 		{
 			paddle.move(-5);
+		}
+	}
+	
+	public void checkBallCollisions()
+	{
+		//collides with paddle
+		if(ball.collision(paddle))
+		{
+			if(ball.hitTop(paddle))
+			{
+				ball.setVY(-1*ball.getVY());
+			}
+			if(ball.hitLeft(paddle))
+			{
+				ball.setVX(-1*ball.getVX());
+			}
+			
 		}
 	}
 

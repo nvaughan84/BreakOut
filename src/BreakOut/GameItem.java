@@ -1,5 +1,7 @@
 package BreakOut;
 
+import java.awt.Rectangle;
+
 public class GameItem {
 
 	private int x;
@@ -13,6 +15,17 @@ public class GameItem {
 		this.width = width;
 		this.height = height;
 	}
+	
+	public Rectangle getBounds()
+	{
+		return new Rectangle(this.x, this.y, this.width, this.height);
+	}
+	
+	public boolean collision(GameItem item)
+	{
+		return this.getBounds().intersects(item.getBounds());
+	}
+
 	
 	public int getX()
 	{

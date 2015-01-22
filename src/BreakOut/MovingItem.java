@@ -12,6 +12,34 @@ public abstract class MovingItem extends GameItem{
 		this.vy = vy;
 	}
 	
+	public boolean hitTop(GameItem item)
+	{
+		//if traveling in a positive Y direction and collides with top of an object
+		if(this.getVY()>0 && (this.getY()+this.getHeight())>=item.getY())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public boolean hitLeft(GameItem item)
+	{
+		System.out.println(this.getVX()>0 && (this.getX()+this.getWidth())>=item.getX());
+		//if traveling in a positive Y direction and collides with top of an object
+		if(this.getVX()>0 && (this.getX()+this.getWidth())>=item.getX())
+		{
+			return true;
+			
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public int getVX()
 	{
 		return vx;
