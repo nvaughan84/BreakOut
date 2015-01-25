@@ -45,6 +45,39 @@ public class Ball extends MovingItem{
 		this.setX(this.getX()+this.getVX());
 		this.setY(this.getY()+this.getVY());		
 	}
+	
+	public boolean checkBallCollisions(GameItem item)
+	{
+		//collides with paddle
+		//NB Need better collision detection
+		if(this.collision(item))
+		{
+			if(this.hitTop(item))
+			{
+				this.setVY(-1*this.getVY());
+				return true;
+			}
+			else if(this.hitBottom(item))
+			{
+				this.setVY(-1*this.getVY());
+				return true;
+			}
+			else if(this.hitLeft(item))
+			{
+				this.setVX(-1*this.getVX());
+				return true;
+			}
+			else if(this.hitRight(item))
+			{
+				this.setVX(-1*this.getVX());
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	
+	
 	public boolean isOutOfBounds()
 	{
 		return outOfBounds;

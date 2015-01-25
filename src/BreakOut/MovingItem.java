@@ -38,6 +38,8 @@ public abstract class MovingItem extends GameItem{
 		}
 	}
 	
+	
+	
 	public boolean hitBottom(GameItem item)
 	{
 		if(this.getY()<=item.getY()+item.getHeight())

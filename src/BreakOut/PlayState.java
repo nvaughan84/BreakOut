@@ -2,8 +2,8 @@ package BreakOut;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-
-import BreakOut.GameState.State;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PlayState extends GameState {
 
@@ -11,23 +11,39 @@ public class PlayState extends GameState {
 	private Paddle paddle;
 	private boolean paddleLeft = false;
 	private boolean paddleRight = false;
+	private ArrayList<Brick> bricks = new ArrayList<Brick>();
+	Game game;
 	
 	public PlayState(GameStateManager gsm, Game game) {
 		super(gsm);
 		this.state = State.PLAYING;
-		this.ball = new Ball(20,20,20,20,1,1, game);
+		this.game = game;
+		this.ball = new Ball(20,40,20,20,3,3, game);
 		this.paddle = new Paddle(20, game.getHeight()-60, 50, 10, 0, 0, game);
+		layBricks();
 	}
 
-	@Override
+
 	public void update() {
-		checkBallCollisions();
+		//Check if the ball collides with bricks or the paddle
+		ball.checkBallCollisions(paddle);
+		Iterator<Brick> brickList = bricks.iterator();
+		while (brickList.hasNext()) {
+			if(ball.checkBallCollisions(brickList.next()))
+			{
+				brickList.remove();
+			}
+		}
+		
+		//Move ball based on x/y velocity components
 		ball.move(ball.getVX(), ball.getVY());
+		//Determine whether the ball is out of bounds. Of so, pop the PlayState from the GSM and add the GameOverState
 		if(ball.isOutOfBounds())
 		{
-			gsm.pop();//if the ball goes out of bounds, return to the main menu
-			gsm.add(new GameOverState(gsm));
+			gsm.pop();//if the ball goes out of bounds, remove PlayState			
+			gsm.add(new GameOverState(gsm, game)); //add Game Over State to GSM Stack
 		}
+		//Move paddle based on Key Press
 		if(paddleRight){
 			paddle.move(5);
 		}
@@ -37,28 +53,14 @@ public class PlayState extends GameState {
 		}
 	}
 	
-	public void checkBallCollisions()
+	
+
+	
+	public void layBricks()
 	{
-		//collides with paddle
-		if(ball.collision(paddle))
+		for(int i = 0; i < 10; i++)
 		{
-			if(ball.hitTop(paddle))
-			{
-				ball.setVY(-1*ball.getVY());
-			}
-			else if(ball.hitBottom(paddle))
-			{
-				ball.setVY(-1*ball.getVY());
-			}
-			else if(ball.hitLeft(paddle))
-			{
-				ball.setVX(-1*ball.getVX());
-			}
-			else if(ball.hitRight(paddle))
-			{
-				ball.setVX(-1*ball.getVX());
-			}
-			
+			bricks.add(new Brick(10+30*i,20,30,10));
 		}
 	}
 
@@ -66,6 +68,10 @@ public class PlayState extends GameState {
 	public void render(Graphics g) {
 		ball.render(g);
 		paddle.render(g);
+		Iterator<Brick> brickList = bricks.iterator();
+		while (brickList.hasNext()) {
+			brickList.next().render(g);
+		}
 	}
 
 	@Override

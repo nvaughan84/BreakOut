@@ -7,12 +7,13 @@ import java.awt.event.KeyEvent;
 
 public class MenuState extends GameState {
 	
-	//State state;
+	Game game;
 
-	public MenuState(GameStateManager gsm) {
+	public MenuState(GameStateManager gsm, Game game) {
 		super(gsm);
 		//set State
 		this.state = State.MAIN_MENU;
+		this.game = game;
 	}
 
 	public void update() {		
@@ -21,8 +22,8 @@ public class MenuState extends GameState {
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;	
 		g2d.setColor(Color.RED);
-		g2d.drawString("Super Bricks",70,20);			
-		g2d.drawString("Press Enter to Start",40,60);
+		g2d.drawString("Super Bricks", (int)game.getWidth()/2-50,20);			
+		g2d.drawString("Press Enter to Start", (int)game.getWidth()/2-70,60);
 	}
 
 	public void keyPressed(int k) {

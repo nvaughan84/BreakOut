@@ -21,8 +21,18 @@ public class Paddle extends MovingItem{
 	}
 	
 	public void move(int vx)
-	{
-		this.setX(this.getX()+vx);				
+	{		
+		this.setX(this.getX()+vx);
+		
+		//if paddle goes out of bounds, reset x position
+		if(this.getX()<0)
+		{
+			this.setX(0);
+		}
+		if(this.getX()+this.getWidth()>game.getWidth())
+		{
+			this.setX(game.getWidth()-this.getWidth());
+		}
 	}
 
 }
